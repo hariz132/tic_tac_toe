@@ -1,5 +1,5 @@
 class Player
-  attr_accessor :symbol, :name, :grids
+  attr_reader :symbol, :name
 
   @@all = []
 
@@ -10,7 +10,6 @@ class Player
   def initialize(symbol, name)
     @symbol = symbol
     @name = name
-    @grids = []
     @@all << self
   end
 end
