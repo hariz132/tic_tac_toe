@@ -12,11 +12,11 @@ class Board
   end
 
   def display_board
-    puts " #{grid([0, 0]).value} | #{grid([0, 1]).value} | #{grid([0, 2]).value} "
+    puts " #{grid([0, 0]).value} | #{grid([1, 0]).value} | #{grid([2, 0]).value} "
     puts '-----------'
-    puts " #{grid([1, 0]).value} | #{grid([1, 1]).value} | #{grid([1, 2]).value} "
+    puts " #{grid([0, 1]).value} | #{grid([1, 1]).value} | #{grid([2, 1]).value} "
     puts '-----------'
-    puts " #{grid([2, 0]).value} | #{grid([2, 1]).value} | #{grid([2, 2]).value} "
+    puts " #{grid([0, 2]).value} | #{grid([1, 2]).value} | #{grid([2, 2]).value} "
   end
 
   def grid(input)
