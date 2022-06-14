@@ -19,7 +19,7 @@ def play_game
           puts 'Grid already filled, please try again:'
           next
         end
-        break unless current_board.player_win?(player)
+        break unless current_board.player_win?(input, player)
 
         puts current_board.display_board
         puts "#{player.name} wins!"

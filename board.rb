@@ -28,26 +28,60 @@ class Board
     grid(input).player = player
   end
 
-  def player_win?(player)
-    diagonal_win?(player) || horizontal_win?(player) || vertical_win?(player)
+  def player_win?(input, player)
+    case input
+    when [0, 0]
+      row1_win?(player) || column1_win?(player) || diagonal1_win?(player)
+    when [1, 0]
+      row1_win?(player) || column2_win?(player)
+    when [2, 0]
+      row1_win?(player) || column3_win?(player) || diagonal2_win?(player)
+    when [0, 1]
+      row2_win?(player) || column1_win?(player)
+    when [1, 1]
+      row2_win?(player) || column2_win?(player) || diagonal1_win?(player) || diagonal2_win?(player)
+    when [2, 1]
+      row2_win?(player) || column3_win?(player)
+    when [0, 2]
+      row3_win?(player) || column1_win?(player) || diagonal2_win?(player)
+    when [1, 2]
+      row3_win?(player) || column2_win?(player)
+    when [2, 2]
+      row3_win?(player) || column3_win?(player) || diagonal1_win?(player)
+    end
   end
 
   private
 
-  def diagonal_win?(player)
-    (grid([0, 0]).player.equal?(player) && grid([1, 1]).player.equal?(player) && grid([2, 2]).player.equal?(player)) ||
-      (grid([0, 2]).player.equal?(player) && grid([1, 1]).player.equal?(player) && grid([2, 0]).player.equal?(player))
+  def row1_win?(player)
+    grid([0, 0]).player.equal?(player) && grid([1, 0]).player.equal?(player) && grid([2, 0]).player.equal?(player)
   end
 
-  def horizontal_win?(player)
-    (grid([0, 0]).player.equal?(player) && grid([1, 0]).player.equal?(player) && grid([2, 0]).player.equal?(player)) ||
-      (grid([0, 1]).player.equal?(player) && grid([1, 1]).player.equal?(player) && grid([2, 1]).player.equal?(player)) ||
-      (grid([0, 2]).player.equal?(player) && grid([1, 2]).player.equal?(player) && grid([2, 2]).player.equal?(player))
+  def row2_win?(player)
+    grid([0, 1]).player.equal?(player) && grid([1, 1]).player.equal?(player) && grid([2, 1]).player.equal?(player)
   end
 
-  def vertical_win?(player)
-    (grid([0, 0]).player.equal?(player) && grid([0, 1]).player.equal?(player) && grid([0, 2]).player.equal?(player)) ||
-      (grid([1, 0]).player.equal?(player) && grid([1, 1]).player.equal?(player) && grid([1, 2]).player.equal?(player)) ||
-      (grid([2, 0]).player.equal?(player) && grid([2, 1]).player.equal?(player) && grid([2, 2]).player.equal?(player))
+  def row3_win?(player)
+    grid([0, 2]).player.equal?(player) && grid([1, 2]).player.equal?(player) && grid([2, 2]).player.equal?(player)
+  end
+
+  def column1_win?(player)
+    grid([0, 0]).player.equal?(player) && grid([0, 1]).player.equal?(player) && grid([0, 2]).player.equal?(player)
+  end
+
+  def column2_win?(player)
+    grid([1, 0]).player.equal?(player) && grid([1, 1]).player.equal?(player) && grid([1, 2]).player.equal?(player)
+  end
+
+  def column3_win?(player)
+    grid([2, 0]).player.equal?(player) && grid([2, 1]).player.equal?(player) && grid([2, 2]).player.equal?(player)
+  end
+
+  def diagonal1_win?(player)
+    grid([0, 0]).player.equal?(player) && grid([1, 1]).player.equal?(player) && grid([2, 2]).player.equal?(player)
+  end
+
+  def diagonal2_win?(player)
+    grid([0, 2]).player.equal?(player) && grid([1, 1]).player.equal?(player) && grid([2, 0]).player.equal?(player)
   end
 end
