@@ -3,12 +3,18 @@ require './board'
 
 def play_game
   current_board = Board.new
+  turn = 0
   puts "\nCoordinates:"
   current_board.display_board_coordinates
   loop do
     Player.all.each do |player|
       puts "\n"
       puts current_board.display_board
+      turn += 1
+      if turn > 9
+        puts "It's a draw!"
+        return
+      end
       puts "Please input for #{player.name} (#{player.marker}):"
       loop do
         input = gets.chomp.to_i
