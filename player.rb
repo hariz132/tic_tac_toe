@@ -1,5 +1,5 @@
 class Player
-  attr_reader :symbol, :name
+  attr_reader :marker, :name
 
   @@all = []
 
@@ -7,8 +7,8 @@ class Player
     @@all
   end
 
-  def initialize(symbol, name)
-    @symbol = symbol
+  def initialize(marker, name)
+    @marker = marker
     @name = name
     @@all << self
   end

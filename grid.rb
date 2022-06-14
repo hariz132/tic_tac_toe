@@ -1,5 +1,6 @@
 class Grid
   attr_accessor :value, :player
+  attr_reader :coordinate
 
   def initialize(coordinate)
     @coordinate = coordinate

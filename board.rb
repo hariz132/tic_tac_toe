@@ -1,52 +1,53 @@
 require './grid'
 
 class Board
-  attr_accessor :grids
+  attr_reader :grids
 
   def initialize
-    @grids = [
-      [Grid.new([0, 0]), Grid.new([0, 1]), Grid.new([0, 2])],
-      [Grid.new([1, 0]), Grid.new([1, 1]), Grid.new([1, 2])],
-      [Grid.new([2, 0]), Grid.new([2, 1]), Grid.new([2, 2])]
-    ]
+    @grids = { 1 => Grid.new(1), 2 => Grid.new(2), 3 => Grid.new(3), 4 => Grid.new(4), 5 => Grid.new(5),
+               6 => Grid.new(6), 7 => Grid.new(7), 8 => Grid.new(8), 9 => Grid.new(9) }
+  end
+
+  def display_board_coordinates
+    puts " #{grids[1].coordinate} | #{grids[2].coordinate} | #{grids[3].coordinate} "
+    puts '-----------'
+    puts " #{grids[4].coordinate} | #{grids[5].coordinate} | #{grids[6].coordinate} "
+    puts '-----------'
+    puts " #{grids[7].coordinate} | #{grids[8].coordinate} | #{grids[9].coordinate} "
   end
 
   def display_board
-    puts " #{grid([0, 0]).value} | #{grid([1, 0]).value} | #{grid([2, 0]).value} "
+    puts " #{grids[1].value} | #{grids[2].value} | #{grids[3].value} "
     puts '-----------'
-    puts " #{grid([0, 1]).value} | #{grid([1, 1]).value} | #{grid([2, 1]).value} "
+    puts " #{grids[4].value} | #{grids[5].value} | #{grids[6].value} "
     puts '-----------'
-    puts " #{grid([0, 2]).value} | #{grid([1, 2]).value} | #{grid([2, 2]).value} "
-  end
-
-  def grid(input)
-    grids.dig(*input)
+    puts " #{grids[7].value} | #{grids[8].value} | #{grids[9].value} "
   end
 
   def update_board(input, player)
-    grid(input).value = player.symbol
-    grid(input).player = player
+    grids[input].value = player.marker
+    grids[input].player = player
   end
 
   def player_win?(input, player)
     case input
-    when [0, 0]
+    when 1
       row1_win?(player) || column1_win?(player) || diagonal1_win?(player)
-    when [1, 0]
+    when 2
       row1_win?(player) || column2_win?(player)
-    when [2, 0]
+    when 3
       row1_win?(player) || column3_win?(player) || diagonal2_win?(player)
-    when [0, 1]
+    when 4
       row2_win?(player) || column1_win?(player)
-    when [1, 1]
+    when 5
       row2_win?(player) || column2_win?(player) || diagonal1_win?(player) || diagonal2_win?(player)
-    when [2, 1]
+    when 6
       row2_win?(player) || column3_win?(player)
-    when [0, 2]
+    when 7
       row3_win?(player) || column1_win?(player) || diagonal2_win?(player)
-    when [1, 2]
+    when 8
       row3_win?(player) || column2_win?(player)
-    when [2, 2]
+    when 9
       row3_win?(player) || column3_win?(player) || diagonal1_win?(player)
     end
   end
@@ -54,34 +55,34 @@ class Board
   private
 
   def row1_win?(player)
-    grid([0, 0]).player.equal?(player) && grid([1, 0]).player.equal?(player) && grid([2, 0]).player.equal?(player)
+    grids[1].player.equal?(player) && grids[2].player.equal?(player) && grids[3].player.equal?(player)
   end
 
   def row2_win?(player)
-    grid([0, 1]).player.equal?(player) && grid([1, 1]).player.equal?(player) && grid([2, 1]).player.equal?(player)
+    grids[4].player.equal?(player) && grids[5].player.equal?(player) && grids[6].player.equal?(player)
   end
 
   def row3_win?(player)
-    grid([0, 2]).player.equal?(player) && grid([1, 2]).player.equal?(player) && grid([2, 2]).player.equal?(player)
+    grids[7].player.equal?(player) && grids[8].player.equal?(player) && grids[9].player.equal?(player)
   end
 
   def column1_win?(player)
-    grid([0, 0]).player.equal?(player) && grid([0, 1]).player.equal?(player) && grid([0, 2]).player.equal?(player)
+    grids[1].player.equal?(player) && grids[4].player.equal?(player) && grids[7].player.equal?(player)
   end
 
   def column2_win?(player)
-    grid([1, 0]).player.equal?(player) && grid([1, 1]).player.equal?(player) && grid([1, 2]).player.equal?(player)
+    grids[2].player.equal?(player) && grids[5].player.equal?(player) && grids[8].player.equal?(player)
   end
 
   def column3_win?(player)
-    grid([2, 0]).player.equal?(player) && grid([2, 1]).player.equal?(player) && grid([2, 2]).player.equal?(player)
+    grids[3].player.equal?(player) && grids[6].player.equal?(player) && grids[9].player.equal?(player)
   end
 
   def diagonal1_win?(player)
-    grid([0, 0]).player.equal?(player) && grid([1, 1]).player.equal?(player) && grid([2, 2]).player.equal?(player)
+    grids[1].player.equal?(player) && grids[5].player.equal?(player) && grids[9].player.equal?(player)
   end
 
   def diagonal2_win?(player)
-    grid([0, 2]).player.equal?(player) && grid([1, 1]).player.equal?(player) && grid([2, 0]).player.equal?(player)
+    grids[7].player.equal?(player) && grids[5].player.equal?(player) && grids[3].player.equal?(player)
   end
 end

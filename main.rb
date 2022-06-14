@@ -3,26 +3,29 @@ require './board'
 
 def play_game
   current_board = Board.new
+  puts "\nCoordinates:"
+  current_board.display_board_coordinates
   loop do
     Player.all.each do |player|
+      puts "\n"
       puts current_board.display_board
-      puts "Please input for #{player.name} (#{player.symbol}):"
+      puts "Please input for #{player.name} (#{player.marker}):"
       loop do
-        input = gets.chomp.split(' ').map(&:to_i)
-        unless (input - [0, 1, 2]).empty?
-          puts 'Invalid coordinates given, please try again:'
+        input = gets.chomp.to_i
+        unless (1..9).include?(input)
+          puts 'Invalid coordinate given, please try again:'
           next
         end
-        if current_board.grid(input).empty?
+        if current_board.grids[input].empty?
           current_board.update_board(input, player)
         else
-          puts 'Grid already filled, please try again:'
+          puts 'Coordinate already filled, please try again:'
           next
         end
         break unless current_board.player_win?(input, player)
 
         puts current_board.display_board
-        puts "#{player.name} wins!"
+        puts "#{player.name} (#{player.marker}) wins!"
         return
       end
     end
